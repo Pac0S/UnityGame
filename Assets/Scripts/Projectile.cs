@@ -22,7 +22,7 @@ public class Projectile : MonoBehaviour
     //Coordonnée z du gameobject au moment de sa saisie
     private float mZCoord;
 
-    //Sur le tapis ou attrappé/envoyé
+    //Sur le tapis ou attrapé/envoyé
     public bool state; 
     #endregion
 
@@ -33,14 +33,14 @@ public class Projectile : MonoBehaviour
     {
         isCaught = false;
         isLaunched = false;
-        speed = 1.0f;
+        speed = 5.0f;
     }
 
     // Update is called once per frame
     void Update()
     {
         //Détruire l'objet si il dépasse une certaine position
-        if(transform.position.x >= 6)
+        if(transform.position.x >= 6.0f && !isLaunched && !isCaught)
         {
             Object.Destroy(this.gameObject);
         }
@@ -49,10 +49,10 @@ public class Projectile : MonoBehaviour
         //Les minions défilent sur le tapis s'ils ne sont pas attrapés et / ou lancés
         if (!isCaught && !isLaunched)
         {
-            Vector3 direction = -Vector3.Normalize(transform.position - new Vector3(speed, 0.0f, 0.0f));
+            Vector3 direction = -Vector3.Normalize(transform.position - new Vector3(10.0f, 0.0f, 0.0f));
             direction.y = 0.0f;
             direction.z = 0.0f;
-            transform.Translate(direction * 5 * Time.deltaTime);
+            transform.Translate(direction * speed * Time.deltaTime);
             Debug.Log(transform.position.x);
         }
 
@@ -101,5 +101,11 @@ public class Projectile : MonoBehaviour
         //...dans la direction de la souris
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         transform.GetComponent<Rigidbody>().AddForce(ray.direction * 1000.0f);
+    }
+
+
+    private void Catch()
+    {
+       
     }
 }
