@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1152056678699396647}
   - component: {fileID: 5200459214183650649}
   - component: {fileID: -7458551106627367705}
+  - component: {fileID: -5018387764211101132}
   m_Layer: 0
   m_Name: Chat
   m_TagString: Untagged
@@ -108,3 +109,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
+--- !u!54 &-5018387764211101132
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5716500439739036437}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
