@@ -30,6 +30,9 @@ public class Projectile : MonoBehaviour
 
     private Animator animator;
 
+    public SpriteRenderer fleche;
+    public Material material;
+
     #endregion
 
 
@@ -74,6 +77,7 @@ public class Projectile : MonoBehaviour
 
     void OnMouseDown()
     {
+        
         //Le minion est attrapé
         isCaught = true;
 
@@ -107,6 +111,7 @@ public class Projectile : MonoBehaviour
     {
         //Drag le minion avec la souris
         transform.position = GetMouseAsWorldPoint() + mOffset;
+        material.SetFloat("_Yoffset", Mathf.Abs(Mathf.Sin(Time.time - t0)));
     }
 
     private void OnMouseUp()
@@ -116,17 +121,12 @@ public class Projectile : MonoBehaviour
         isLaunched = true;
 
         //Variation sinusoidale de la force de lancer
-        launchSpeed = Mathf.Abs(Mathf.Sin(Time.time-t0) * 3000);
+        launchSpeed = Mathf.Abs(Mathf.Sin(Time.time-t0)*3000);
 
         //...dans la direction de la souris
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         transform.GetComponent<Rigidbody>().AddForce(ray.direction * launchSpeed);
         Debug.Log(launchSpeed);
-    }
-
-
-    private void Catch()
-    {
-       
+        material.SetFloat("_Yoffset",0.0f);
     }
 }
