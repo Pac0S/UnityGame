@@ -45,13 +45,14 @@ public class Projectile : MonoBehaviour
         isLaunched = false;
         speed = 5.0f;
         animator = GetComponent<Animator>();
+        transform.Rotate(new Vector3(0f, 180f, 0f));
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
         //Détruire l'objet si il dépasse une certaine position
-        if(transform.position.x >= 6.0f && !isLaunched && !isCaught || transform.position.y <= 0.0f && !isCaught)
+        if(transform.position.x >= 6.0f && !isLaunched && !isCaught || transform.position.y <= -1.0f && !isCaught)
         {
             Object.Destroy(this.gameObject);
         }
@@ -60,7 +61,7 @@ public class Projectile : MonoBehaviour
         //Les minions défilent sur le tapis s'ils ne sont pas attrapés et / ou lancés
         if (!isCaught && !isLaunched)
         {
-            Vector3 direction = -Vector3.Normalize(transform.position - new Vector3(10.0f, 0.0f, 0.0f));
+            Vector3 direction = Vector3.Normalize(transform.position - new Vector3(10.0f, 0.0f, 0.0f));
             direction.y = 0.0f;
             direction.z = 0.0f;
             transform.Translate(direction * speed * Time.deltaTime);

@@ -108,7 +108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d6a787d51f9564489a773d8d007a751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  state: 0
+  targets:
+  - {fileID: 1501084758933746, guid: 9437be881ad682348bd31aa228922027, type: 3}
+  - {fileID: 3891330120442122393, guid: 66d3dc320de769b419ae4ab12b41ff02, type: 3}
+  - {fileID: 5433279378186702068, guid: 195d836b6a2f27743944f5382ee8a750, type: 3}
+  joueur: {fileID: 2856896892562080455, guid: 2d33d162ec2ae9f469e1b342a951ed9c, type: 3}
 --- !u!54 &-5694398851924659952
 Rigidbody:
   m_ObjectHideFlags: 0
