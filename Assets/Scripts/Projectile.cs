@@ -51,7 +51,7 @@ public class Projectile : MonoBehaviour
     void FixedUpdate()
     {
         //Détruire l'objet si il dépasse une certaine position
-        if(transform.position.x >= 6.0f && !isLaunched && !isCaught)
+        if(transform.position.x >= 6.0f && !isLaunched && !isCaught || transform.position.y <= -1.0f && !isCaught)
         {
             Object.Destroy(this.gameObject);
         }
