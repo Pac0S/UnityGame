@@ -16,14 +16,18 @@ public class Projectile : MonoBehaviour
     //vitesse de translation sur le tapis roulant
     private float speed;
 
+    //vitesse de l'objet au lancer
+    private float launchSpeed = 0;
+
     //Offset pour corriger la position de la souris sur l'écran
     private Vector3 mOffset;
 
     //Coordonnée z du gameobject au moment de sa saisie
     private float mZCoord;
+    
+    //Base temporelle pour calculer la force de lancer
+    private float t0;
 
-    //Sur le tapis ou attrapé/envoyé
-    public bool state; 
     #endregion
 
 
@@ -53,15 +57,18 @@ public class Projectile : MonoBehaviour
             direction.y = 0.0f;
             direction.z = 0.0f;
             transform.Translate(direction * speed * Time.deltaTime);
-            Debug.Log(transform.position.x);
+           
         }
-
+        Debug.Log(launchSpeed);
     }
 
     void OnMouseDown()
     {
         //Le minion est attrapé
         isCaught = true;
+
+        //On initialise un temps qui donnera la force de lancer
+        t0 = Time.time;
 
 
         //Coordonnée z du minion
@@ -98,9 +105,13 @@ public class Projectile : MonoBehaviour
         isCaught = false;
         isLaunched = true;
 
+        //Variation sinusoidale de la force de lancer
+        launchSpeed = Mathf.Abs(Mathf.Sin(Time.time-t0) * 3000);
+
         //...dans la direction de la souris
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        transform.GetComponent<Rigidbody>().AddForce(ray.direction * 1000.0f);
+        transform.GetComponent<Rigidbody>().AddForce(ray.direction * launchSpeed);
+        Debug.Log(launchSpeed);
     }
 
 

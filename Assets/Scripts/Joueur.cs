@@ -26,7 +26,7 @@ public class Joueur : MonoBehaviour
         if (Time.time > alarm)
         {
             System.Random rnd = new System.Random();
-            int projIndex = rnd.Next(2);
+            int projIndex = rnd.Next(3);
             GameObject.Instantiate(projectiles[projIndex], new Vector3(-6, 0f, 0.0f), Quaternion.identity);
            alarm = Time.time + 1.0f;
         }
