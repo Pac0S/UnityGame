@@ -28,6 +28,8 @@ public class Projectile : MonoBehaviour
     //Base temporelle pour calculer la force de lancer
     private float t0;
 
+    private Animator animator;
+
     #endregion
 
 
@@ -39,10 +41,11 @@ public class Projectile : MonoBehaviour
         isLaunched = false;
         speed = 5.0f;
         transform.Rotate(new Vector3(0.0f, 180f, 0.0f));
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Détruire l'objet si il dépasse une certaine position
         if(transform.position.x >= 6.0f && !isLaunched && !isCaught)
@@ -60,6 +63,12 @@ public class Projectile : MonoBehaviour
             transform.Translate(direction * speed * Time.deltaTime);
            
         }
+
+        if (isCaught)
+        {
+            animator?.SetBool("Walk", true);
+        }
+
         Debug.Log(launchSpeed);
     }
 
