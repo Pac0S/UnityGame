@@ -28,6 +28,12 @@ public class Projectile : MonoBehaviour
     //Base temporelle pour calculer la force de lancer
     private float t0;
 
+    private Animator animator;
+
+    public SpriteRenderer fleche;
+
+    public Material material;
+
     #endregion
 
 
@@ -38,13 +44,14 @@ public class Projectile : MonoBehaviour
         isCaught = false;
         isLaunched = false;
         speed = 5.0f;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Détruire l'objet si il dépasse une certaine position
-        if(transform.position.x >= 6.0f && !isLaunched && !isCaught)
+        if(transform.position.x >= 6.0f && !isLaunched && !isCaught || transform.position.y <= 0.0f && !isCaught)
         {
             Object.Destroy(this.gameObject);
         }
@@ -59,6 +66,10 @@ public class Projectile : MonoBehaviour
             transform.Translate(direction * speed * Time.deltaTime);
            
         }
+        if (isCaught)
+        {
+            animator?.SetBool("Walk", true);
+        }
         Debug.Log(launchSpeed);
     }
 
@@ -69,7 +80,6 @@ public class Projectile : MonoBehaviour
 
         //On initialise un temps qui donnera la force de lancer
         t0 = Time.time;
-
 
         //Coordonnée z du minion
         mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
@@ -91,12 +101,11 @@ public class Projectile : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
 
-
-
     void OnMouseDrag()
     {
         //Drag le minion avec la souris
         transform.position = GetMouseAsWorldPoint() + mOffset;
+        material.SetFloat("_Yoffset", Mathf.Abs(Mathf.Sin(Time.time - t0)));
     }
 
     private void OnMouseUp()
@@ -112,11 +121,16 @@ public class Projectile : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         transform.GetComponent<Rigidbody>().AddForce(ray.direction * launchSpeed);
         Debug.Log(launchSpeed);
+        material.SetFloat("_Yoffset", 0.0f);
     }
 
 
-    private void Catch()
+    private void OnCollisionEnter(Collision collision)
     {
-       
+        //foreach (GameObject target in joueur.targets)
+         if (collision.gameObject.GetComponent("Target") as Target != null )
+         {
+                Object.Destroy(this.gameObject);
+         }
     }
 }
