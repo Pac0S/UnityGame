@@ -36,12 +36,16 @@
 
             fixed4 frag(v2f i) : SV_Target
             {
-	            if (i.uv.y >  _Yoffset)
+		        fixed4 color = tex2D(_MainTex, i.uv);
+
+                clip(color.a - 0.5f);
+
+                if (i.uv.y <=  _Yoffset)
 	            {
-		            return  tex2D(_MainTex, i.uv);
+                    color = fixed4(1, 0, 0, 0);
 	            }
 
-	            return fixed4(1, 0, 0, 0);
+	            return color;
             }
 
             ENDCG
