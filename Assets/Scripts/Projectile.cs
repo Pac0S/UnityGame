@@ -34,6 +34,7 @@ public class Projectile : MonoBehaviour
         isCaught = false;
         isLaunched = false;
         speed = 5.0f;
+        transform.Rotate(new Vector3(0.0f, 180f, 0.0f));
     }
 
     // Update is called once per frame
@@ -49,7 +50,7 @@ public class Projectile : MonoBehaviour
         //Les minions défilent sur le tapis s'ils ne sont pas attrapés et / ou lancés
         if (!isCaught && !isLaunched)
         {
-            Vector3 direction = -Vector3.Normalize(transform.position - new Vector3(10.0f, 0.0f, 0.0f));
+            Vector3 direction = Vector3.Normalize(transform.position - new Vector3(10.0f, 0.0f, 0.0f));
             direction.y = 0.0f;
             direction.z = 0.0f;
             transform.Translate(direction * speed * Time.deltaTime);
