@@ -129,4 +129,13 @@ public class Projectile : MonoBehaviour
         Debug.Log(launchSpeed);
         material.SetFloat("_Yoffset",0.0f);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //foreach (GameObject target in joueur.targets)
+        if (collision.gameObject.GetComponent("Target") as Target != null)
+        {
+            Object.Destroy(this.gameObject);
+        }
+    }
 }
