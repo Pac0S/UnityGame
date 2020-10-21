@@ -31,7 +31,6 @@ public class Projectile : MonoBehaviour
     private Animator animator;
 
     public SpriteRenderer fleche;
-
     public Material material;
 
     #endregion
@@ -44,8 +43,8 @@ public class Projectile : MonoBehaviour
         isCaught = false;
         isLaunched = false;
         speed = 5.0f;
+        transform.Rotate(new Vector3(0.0f, 180f, 0.0f));
         animator = GetComponent<Animator>();
-        transform.Rotate(new Vector3(0f, 180f, 0f));
     }
 
     // Update is called once per frame
@@ -67,20 +66,24 @@ public class Projectile : MonoBehaviour
             transform.Translate(direction * speed * Time.deltaTime);
            
         }
+
         if (isCaught)
         {
             animator?.SetBool("Walk", true);
         }
+
         Debug.Log(launchSpeed);
     }
 
     void OnMouseDown()
     {
+        
         //Le minion est attrapé
         isCaught = true;
 
         //On initialise un temps qui donnera la force de lancer
         t0 = Time.time;
+
 
         //Coordonnée z du minion
         mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
@@ -102,6 +105,8 @@ public class Projectile : MonoBehaviour
         return Camera.main.ScreenToWorldPoint(mousePoint);
     }
 
+
+
     void OnMouseDrag()
     {
         //Drag le minion avec la souris
@@ -116,22 +121,12 @@ public class Projectile : MonoBehaviour
         isLaunched = true;
 
         //Variation sinusoidale de la force de lancer
-        launchSpeed = Mathf.Abs(Mathf.Sin(Time.time-t0) * 3000);
+        launchSpeed = Mathf.Abs(Mathf.Sin(Time.time-t0)*3000);
 
         //...dans la direction de la souris
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         transform.GetComponent<Rigidbody>().AddForce(ray.direction * launchSpeed);
         Debug.Log(launchSpeed);
-        material.SetFloat("_Yoffset", 0.0f);
-    }
-
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        //foreach (GameObject target in joueur.targets)
-         if (collision.gameObject.GetComponent("Target") as Target != null )
-         {
-                Object.Destroy(this.gameObject);
-         }
+        material.SetFloat("_Yoffset",0.0f);
     }
 }
