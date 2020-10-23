@@ -7,6 +7,7 @@ using UnityEngine.UIElements;
 public class Projectile : MonoBehaviour
 {
     #region Attributs
+
     //Est attrapé par le joueur
     private bool isCaught;
 
@@ -19,16 +20,21 @@ public class Projectile : MonoBehaviour
     //vitesse de l'objet au lancer
     private float launchSpeed = 0;
 
-    //Offset pour corriger la position de la souris sur l'écran
+    //Pour corriger la position de la souris sur l'écran
     private Vector3 mOffset;
-
-    //Coordonnée z du gameobject au moment de sa saisie
     private float mZCoord;
     
     //Base temporelle pour calculer la force de lancer
     private float t0;
 
+    //Pour l'animation de saisie
     private Animator animator;
+
+    public GameObject deathFX;
+
+    public GameObject hitFX;
+
+    public GameObject plusUnFX;
 
     public SpriteRenderer fleche;
     public Material material;
@@ -51,7 +57,7 @@ public class Projectile : MonoBehaviour
     void FixedUpdate()
     {
         //Détruire l'objet si il dépasse une certaine position
-        if(transform.position.x >= 6.0f && !isLaunched && !isCaught || transform.position.y <= -1.0f && !isCaught)
+        if(transform.position.x >= 6.0f && !isLaunched && !isCaught)
         {
             Object.Destroy(this.gameObject);
         }
@@ -125,17 +131,31 @@ public class Projectile : MonoBehaviour
 
         //...dans la direction de la souris
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        transform.GetComponent<Rigidbody>().AddForce(ray.direction * launchSpeed);
+        transform.GetComponent<Rigidbody>().AddForce(ray.direction.x * launchSpeed, 500.0f, ray.direction.z * launchSpeed);
         Debug.Log(launchSpeed);
         material.SetFloat("_Yoffset",0.0f);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        //foreach (GameObject target in joueur.targets)
-        if (collision.gameObject.GetComponent("Target") as Target != null)
+        if (collision.gameObject.GetComponent("TapisRoulant") as TapisRoulant != null)
         {
-            Object.Destroy(this.gameObject);
+            return;
+        }
+        else
+        {
+            Instantiate(hitFX, transform.position, Quaternion.identity);
+
+            if (collision.gameObject.GetComponent("Target") as Target != null)
+            {
+                Instantiate(plusUnFX, new Vector3(transform.position.x, 5.0f, transform.position.z), Quaternion.identity);
+                Object.Destroy(this.gameObject);
+            }
+            else
+            {
+                Instantiate(deathFX, transform.position, Quaternion.identity);
+                Object.Destroy(this.gameObject);
+            }
         }
     }
 }
