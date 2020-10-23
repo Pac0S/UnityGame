@@ -1,12 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Joueur : MonoBehaviour
 {
 
-    private int points = 0;
+    //private int points = 0;
     private int remainingLives = 3;
+
+    public Text score;
+
     public GameObject[] projectiles;
     //private GameObject[] targets;
     private float alarm;
@@ -29,7 +33,7 @@ public class Joueur : MonoBehaviour
         
         //On instancie un nouveau minion de façon aléatoire toutes les 5 secondes
         InstanciateMinion();
-
+        SetCountText();
     }
 
     private void InstanciateMinion()
@@ -49,12 +53,18 @@ public class Joueur : MonoBehaviour
         float xOffset = -6 + 12f / (nbTargets + 1);
         for (int i = 0; i < nbTargets; i++)
         {
-            //Instantiate(targetPrefab, new Vector3(xOffset, 0f, distanceJeu), Quaternion.identity);
             xOffset += 12f / (nbTargets + 1);
             GameObject.Instantiate(targetPrefab, new Vector3(xOffset, 0f, distanceJeu), Quaternion.identity);
-            /*Target target = */
-            //targets.Add(target);
         }
 
     }
+    //Fonction qui permet de suivre la progression des scores
+    public void SetCountText()
+    {
+        score.text = "Nombre de points : " + Projectile.points.ToString();
+        
+    }
+
+   /* public void setPoints(int b) { points = b; }
+    public int getPoints() { return points; }*/
 }

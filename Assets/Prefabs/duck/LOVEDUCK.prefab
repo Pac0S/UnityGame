@@ -1393,6 +1393,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d6a787d51f9564489a773d8d007a751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joueur: {fileID: 2722123643125987520, guid: 7f3eb5d768de0a348a7df9941c23f0e3, type: 3}
   deathFX: {fileID: 2821133150566895699, guid: 81029580dafc16342a20983d6254f501, type: 3}
   hitFX: {fileID: 1645203970115691890, guid: 2d0990879f1eb8f4d89307d2edbbca6a, type: 3}
   plusUnFX: {fileID: 2874495545040898588, guid: d0d69b8ee8695c346b1cf2a82cbd2eb3,

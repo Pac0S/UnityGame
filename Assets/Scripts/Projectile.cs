@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Projectile : MonoBehaviour
 {
     #region Attributs
+
+    //Joueur
+    //public Joueur joueur;
+
+    public static int points { get; set; } = 0;
 
     //Est attrapé par le joueur
     private bool isCaught;
@@ -30,14 +36,16 @@ public class Projectile : MonoBehaviour
     //Pour l'animation de saisie
     private Animator animator;
 
+    //FX
     public GameObject deathFX;
-
     public GameObject hitFX;
-
     public GameObject plusUnFX;
 
+    //Jauge de lancer
     public SpriteRenderer fleche;
     public Material material;
+
+    
 
     #endregion
 
@@ -73,12 +81,11 @@ public class Projectile : MonoBehaviour
            
         }
 
+        //lancement de l'animation si attrapé
         if (isCaught)
         {
             animator?.SetBool("Walk", true);
         }
-
-        Debug.Log(launchSpeed);
     }
 
     void OnMouseDown()
@@ -89,7 +96,6 @@ public class Projectile : MonoBehaviour
 
         //On initialise un temps qui donnera la force de lancer
         t0 = Time.time;
-
 
         //Coordonnée z du minion
         mZCoord = Camera.main.WorldToScreenPoint(gameObject.transform.position).z;
@@ -144,17 +150,32 @@ public class Projectile : MonoBehaviour
         }
         else
         {
-            Instantiate(hitFX, transform.position, Quaternion.identity);
+            
 
             if (collision.gameObject.GetComponent("Target") as Target != null)
             {
+                Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
                 Instantiate(plusUnFX, new Vector3(transform.position.x, 5.0f, transform.position.z), Quaternion.identity);
+                Debug.Log("Goodbye!");
+                /*joueur.setPoints(joueur.getPoints() + 1);
+                Debug.Log(joueur.getPoints());*/
+                points += 1;
+                Debug.Log(points);
                 Object.Destroy(this.gameObject);
+                
             }
+            else if (collision.gameObject.GetComponent("Projectile") as Projectile != null)
+            {
+                Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+                return;
+            }
+
             else
             {
-                Instantiate(deathFX, transform.position, Quaternion.identity);
+                Instantiate(deathFX, new Vector3(transform.position.x, 1.0f, transform.position.z), Quaternion.identity);
+                Debug.Log("hello!");
                 Object.Destroy(this.gameObject);
+                
             }
         }
     }
