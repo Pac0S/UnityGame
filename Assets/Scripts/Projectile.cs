@@ -4,6 +4,9 @@ using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
+using System;
+//using System.Diagnostics;
+//using System.Diagnostics;
 
 public class Projectile : MonoBehaviour
 {
@@ -21,7 +24,10 @@ public class Projectile : MonoBehaviour
     private bool isLaunched;
 
     //vitesse de translation sur le tapis roulant
-    private float speed;
+    public static float speedTapis = 5.0f;
+
+    //Vitesse d'évolution de la force de lancer 
+    private static float speedLancer = 1.0f;
 
     //vitesse de l'objet au lancer
     private float launchSpeed = 0;
@@ -56,18 +62,23 @@ public class Projectile : MonoBehaviour
     {
         isCaught = false;
         isLaunched = false;
-        speed = 5.0f;
         transform.Rotate(new Vector3(0.0f, 180f, 0.0f));
         animator = GetComponent<Animator>();
+
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        speedTapis *= 1.0001f;
+        speedLancer *= 1.0001f;
+        Debug.Log(speedLancer + speedTapis);
+
         //Détruire l'objet si il dépasse une certaine position
-        if(transform.position.x >= 6.0f && !isLaunched && !isCaught)
+
+        if (transform.position.x >= 6.0f && !isLaunched && !isCaught)
         {
-            Object.Destroy(this.gameObject);
+            UnityEngine.Object.Destroy(this.gameObject);
         }
 
         
@@ -77,7 +88,8 @@ public class Projectile : MonoBehaviour
             Vector3 direction = Vector3.Normalize(transform.position - new Vector3(10.0f, 0.0f, 0.0f));
             direction.y = 0.0f;
             direction.z = 0.0f;
-            transform.Translate(direction * speed * Time.deltaTime);
+            transform.Translate(direction * speedTapis * Time.deltaTime);
+            
            
         }
 
@@ -123,7 +135,8 @@ public class Projectile : MonoBehaviour
     {
         //Drag le minion avec la souris
         transform.position = GetMouseAsWorldPoint() + mOffset;
-        material.SetFloat("_Yoffset", Mathf.Abs(Mathf.Sin(Time.time - t0)));
+        //Vitesse du shader
+        material.SetFloat("_Yoffset", Mathf.Abs(Mathf.Sin(Time.time - t0))); //speedLancer * (Time.time - t0)
     }
 
     private void OnMouseUp()
@@ -133,13 +146,14 @@ public class Projectile : MonoBehaviour
         isLaunched = true;
 
         //Variation sinusoidale de la force de lancer
-        launchSpeed = Mathf.Abs(Mathf.Sin(Time.time-t0)*3000);
+        launchSpeed = Mathf.Abs(Mathf.Sin((Time.time-t0))*3000);//speedLancer * 
 
         //...dans la direction de la souris
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         transform.GetComponent<Rigidbody>().AddForce(ray.direction.x * launchSpeed, 500.0f, ray.direction.z * launchSpeed);
         Debug.Log(launchSpeed);
         material.SetFloat("_Yoffset",0.0f);
+        
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -156,12 +170,10 @@ public class Projectile : MonoBehaviour
             {
                 Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
                 Instantiate(plusUnFX, new Vector3(transform.position.x, 5.0f, transform.position.z), Quaternion.identity);
-                Debug.Log("Goodbye!");
                 /*joueur.setPoints(joueur.getPoints() + 1);
                 Debug.Log(joueur.getPoints());*/
                 points += 1;
-                Debug.Log(points);
-                Object.Destroy(this.gameObject);
+                UnityEngine.Object.Destroy(this.gameObject);
                 
             }
             else if (collision.gameObject.GetComponent("Projectile") as Projectile != null)
@@ -174,7 +186,7 @@ public class Projectile : MonoBehaviour
             {
                 Instantiate(deathFX, new Vector3(transform.position.x, 1.0f, transform.position.z), Quaternion.identity);
                 Debug.Log("hello!");
-                Object.Destroy(this.gameObject);
+                UnityEngine.Object.Destroy(this.gameObject);
                 
             }
         }

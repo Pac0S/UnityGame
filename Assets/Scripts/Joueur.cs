@@ -18,19 +18,22 @@ public class Joueur : MonoBehaviour
     //public List<Target> targets; //Liste des targets instanciées
     private float distanceJeu = 20;
     private int nbTargets = 3;
+    private float interval;
+    public float spawnSpeedFactor = 1.0f;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        alarm = Time.time + 1.0f;
+        interval = (UnityEngine.Random.Range(Projectile.speedTapis * 0.06f, Projectile.speedTapis * 0.25f)) * spawnSpeedFactor;
+        //alarm = Time.time + 1.0f;
+        alarm = Time.time + interval;
         InstanciateTargets();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
         //On instancie un nouveau minion de façon aléatoire toutes les 5 secondes
         InstanciateMinion();
         SetCountText();
@@ -44,7 +47,8 @@ public class Joueur : MonoBehaviour
             System.Random rnd = new System.Random();
             int projIndex = rnd.Next(projectiles.Length);
             GameObject.Instantiate(projectiles[projIndex], new Vector3(-6, 0.5f, 0.0f), Quaternion.identity);
-            alarm = Time.time + 1.0f;
+            interval = UnityEngine.Random.Range(Projectile.speedTapis * 0.07f, Projectile.speedTapis * 0.2f) * spawnSpeedFactor;
+            alarm = Time.time + interval;
         }
     }
 
@@ -65,6 +69,11 @@ public class Joueur : MonoBehaviour
         
     }
 
-   /* public void setPoints(int b) { points = b; }
-    public int getPoints() { return points; }*/
+    public void SetPoints(int pts)
+    {
+        Projectile.points = pts;
+    }
+
+    /* public void setPoints(int b) { points = b; }
+     public int getPoints() { return points; }*/
 }
