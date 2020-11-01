@@ -69,16 +69,16 @@ public class Projectile : MonoBehaviour
         speedLancer *= 1.0001f;
 
         //Détruire l'objet si il dépasse une certaine position sur le tapis roulant
-        if (transform.position.x >= 6.0f && !isLaunched && !isCaught)
+        /*if (transform.position.x >= 6.0f && !isLaunched && !isCaught)
         {
             UnityEngine.Object.Destroy(this.gameObject);
-        }
+        }*/
 
         
         //Les minions défilent sur le tapis s'ils ne sont pas attrapés et / ou lancés
         if (!isCaught && !isLaunched)
         {
-            Vector3 direction = Vector3.Normalize(transform.position - new Vector3(10.0f, 0.0f, 0.0f));
+            Vector3 direction = Vector3.Normalize(transform.position - new Vector3(50.0f, 0.0f, 0.0f));
             direction.y = 0.0f;
             direction.z = 0.0f;
             transform.Translate(direction * speedTapis * Time.deltaTime);
@@ -91,7 +91,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    #region Interactions
+    #region Methods
     void OnMouseDown()
     {
         //Le minion est attrapé

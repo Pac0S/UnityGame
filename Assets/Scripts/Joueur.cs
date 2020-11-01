@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -53,7 +54,7 @@ public class Joueur : MonoBehaviour
         }
     }
 
-    #region Interactions
+    #region Methods
     private void InstanciateMinion()
     {
         //On instancie un nouveau minion de façon aléatoire, avec un interval de temps variable
@@ -61,28 +62,37 @@ public class Joueur : MonoBehaviour
         {
             System.Random rnd = new System.Random();
             int projIndex = rnd.Next(projectiles.Length);
-            GameObject.Instantiate(projectiles[projIndex], new Vector3(-6, 0.5f, -3.5f), Quaternion.identity);
+            GameObject.Instantiate(projectiles[projIndex], new Vector3(-35, 0.5f, -9f), Quaternion.identity);
 
-            interval = UnityEngine.Random.Range(Projectile.speedTapis * 0.07f, Projectile.speedTapis * 0.2f) * spawnSpeedFactor + 0.15f;
+            interval = UnityEngine.Random.Range(0.40f, 1.6f) * spawnSpeedFactor;
+            //interval = UnityEngine.Random.Range(Projectile.speedTapis * 0.07f, Projectile.speedTapis * 0.2f) * spawnSpeedFactor + 0.15f;
             alarm = Time.time + interval;
         }
     }
 
     public void InstanciateTargets() //pour générer les différentes cibles espacées les unes des autres
     {
-        float xOffset = -20 + 12f / (targets.Length + 1);
+
+        float[] xs = { -26, 0, 0, 26 };
+        float[] ys = { distanceJeu+20, distanceJeu +25 , distanceJeu, distanceJeu+20 };
+        for (int i = 0; i < targets.Length; i++)
+        {
+            GameObject.Instantiate(targets[i], new Vector3(xs[i], 1f, ys[i]), Quaternion.identity);
+        }
+
+        /*float xOffset = -20 + 12f / (targets.Length + 1);
 
         for (int i = 0; i < targets.Length; i++)
         {
             xOffset += 5f + 12f / (targets.Length + 1);
             GameObject.Instantiate(targets[i], new Vector3(xOffset, 1f, distanceJeu), Quaternion.identity);
-        }
+        }*/
 
     }
     
     public void SetCountText() //Fonction qui permet de suivre la progression des scores
     {
-        score.text = "Nombre de points : " + Projectile.points.ToString() + "\n" + "Nombres de vies restantes : " + (remainingLives-Projectile.errors).ToString();
+        score.text = "Safe puppies : " + Projectile.points.ToString() + "\t\t\t\t\t\t" + "Puppies in some other dimension : " + (remainingLives-Projectile.errors).ToString();
         
         if ((remainingLives - Projectile.errors) == 0.0f) //Lorsque le joueur n'a plus de vie
         {
