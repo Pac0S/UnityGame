@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour
     //public Joueur joueur;
 
     public static int points { get; set; } = 0;
+    public static int errors { get; set; } = 0;
 
     //Est attrapé par le joueur
     private bool isCaught;
@@ -153,7 +154,7 @@ public class Projectile : MonoBehaviour
         //...dans la direction de la souris
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         transform.GetComponent<Rigidbody>().AddForce(ray.direction.x * launchSpeed, 500.0f, ray.direction.z * launchSpeed);
-        Debug.Log(launchSpeed);
+        //Debug.Log(launchSpeed);
         material.SetFloat("_Yoffset",0.0f);
         
     }
@@ -185,6 +186,7 @@ public class Projectile : MonoBehaviour
                 {
                     Instantiate(wrongTargetFX, new Vector3(transform.position.x, transform.position.y+1.0f, transform.position.z), Quaternion.identity);
                     Debug.Log("Wrong target!");
+                    errors += 1;
                     UnityEngine.Object.Destroy(this.gameObject);
                 }
 
@@ -223,6 +225,7 @@ public class Projectile : MonoBehaviour
             {
                 Instantiate(hitwaterFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), rotation);
                 Debug.Log("The water is lava!");
+                errors += 1;
                 UnityEngine.Object.Destroy(this.gameObject);
             }
 
@@ -230,6 +233,7 @@ public class Projectile : MonoBehaviour
             {
                 Instantiate(deathFX, new Vector3(transform.position.x, 1.0f, transform.position.z), rotation);
                 Debug.Log("The floor is lava!");
+                errors += 1;
                 UnityEngine.Object.Destroy(this.gameObject);
                 
             }

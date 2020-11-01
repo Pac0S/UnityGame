@@ -312,6 +312,8 @@ MonoBehaviour:
   Anim: {fileID: 854627475}
   transitionTime: 1
   img: {fileID: 1423946137}
+  joueur: {fileID: 0}
+  pauseMenuUI: {fileID: 0}
 --- !u!1 &282925202
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,6 +751,8 @@ MonoBehaviour:
   Anim: {fileID: 854627475}
   transitionTime: 1
   img: {fileID: 1423946137}
+  joueur: {fileID: 0}
+  pauseMenuUI: {fileID: 0}
 --- !u!1 &567447074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,7 +1426,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1363950404
 AudioListener:
   m_ObjectHideFlags: 0

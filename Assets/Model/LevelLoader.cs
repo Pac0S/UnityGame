@@ -16,6 +16,7 @@ public class LevelLoader : MonoBehaviour
     public static bool GameIsPaused = false;
 
     public GameObject pauseMenuUI;
+    public GameObject LoseMenuUI;
 
     static string previous_level = null;
 
@@ -28,6 +29,7 @@ public class LevelLoader : MonoBehaviour
     public void NewGame()
     {
         Resume(); //****
+        LoseMenuUI.SetActive(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         joueur.SetPoints(0);
     }
