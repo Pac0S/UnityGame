@@ -141,7 +141,7 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
+        Quaternion rotation = Quaternion.Euler(90f, 0f, 0f);
 
         if (collision.gameObject.GetComponent("TapisRoulant") as TapisRoulant != null) //si le minion est en contact avec le tapis roulant, il ne se passe rien
         {
@@ -198,7 +198,7 @@ public class Projectile : MonoBehaviour
 
             else //si le minion entre en contact avec le sol, FX p)lus disparition
             {
-                Instantiate(deathFX, new Vector3(transform.position.x, 1.0f, transform.position.z), rotation);
+                Instantiate(deathFX, new Vector3(transform.position.x, 0f, transform.position.z), Quaternion.identity);
                 Debug.Log("The floor is lava!");
                 errors += 1;
                 UnityEngine.Object.Destroy(this.gameObject);
