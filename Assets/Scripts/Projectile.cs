@@ -5,15 +5,10 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.UI;
 using System;
-//using System.Diagnostics;
-//using System.Diagnostics;
 
 public class Projectile : MonoBehaviour
 {
     #region Attributs
-
-    //Joueur
-    //public Joueur joueur;
 
     public static int points { get; set; } = 0;
     public static int errors { get; set; } = 0;
@@ -54,11 +49,7 @@ public class Projectile : MonoBehaviour
     public SpriteRenderer fleche;
     public Material material;
 
-    
-
     #endregion
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -73,12 +64,11 @@ public class Projectile : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        //augmentation des vitesses, et donc de la difficulté
         speedTapis *= 1.0001f;
         speedLancer *= 1.0001f;
-        //Debug.Log(speedLancer + speedTapis);
 
-        //Détruire l'objet si il dépasse une certaine position
-
+        //Détruire l'objet si il dépasse une certaine position sur le tapis roulant
         if (transform.position.x >= 6.0f && !isLaunched && !isCaught)
         {
             UnityEngine.Object.Destroy(this.gameObject);
@@ -92,8 +82,6 @@ public class Projectile : MonoBehaviour
             direction.y = 0.0f;
             direction.z = 0.0f;
             transform.Translate(direction * speedTapis * Time.deltaTime);
-            
-           
         }
 
         //lancement de l'animation si attrapé
@@ -103,9 +91,9 @@ public class Projectile : MonoBehaviour
         }
     }
 
+    #region Interactions
     void OnMouseDown()
     {
-        
         //Le minion est attrapé
         isCaught = true;
 
@@ -117,7 +105,6 @@ public class Projectile : MonoBehaviour
 
         //offset = gameobject world pos - mouse world pos
         mOffset = gameObject.transform.position - GetMouseAsWorldPoint();
-
     }
 
     private Vector3 GetMouseAsWorldPoint()
@@ -163,7 +150,7 @@ public class Projectile : MonoBehaviour
     {
         Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
 
-        if (collision.gameObject.GetComponent("TapisRoulant") as TapisRoulant != null)
+        if (collision.gameObject.GetComponent("TapisRoulant") as TapisRoulant != null) //si le minion est en contact avec le tapis roulant, il ne se passe rien
         {
             return;
         }
@@ -171,18 +158,15 @@ public class Projectile : MonoBehaviour
         {
             if (collision.gameObject.GetComponent("Target") as Target != null)
             {
-                if (collision.gameObject.name == "Target" + this.name)
+                if (collision.gameObject.name == "Target" + this.name) //si le minion est en contact avec la cible qui lui correspond, alors le score augmente, FX plus disparition
                 {
                     Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
                     Instantiate(plusUnFX, new Vector3(transform.position.x, 5.0f, transform.position.z), Quaternion.identity);
                     Debug.Log("You did  it!");
-                    /*joueur.setPoints(joueur.getPoints() + 1);
-                    Debug.Log(joueur.getPoints());*/
                     points += 1;
-                    Debug.Log(points);
                     UnityEngine.Object.Destroy(this.gameObject);
                 }
-                else
+                else //si le minion est en contact avec une autre cible, FX plus disparition
                 {
                     Instantiate(wrongTargetFX, new Vector3(transform.position.x, transform.position.y+1.0f, transform.position.z), Quaternion.identity);
                     Debug.Log("Wrong target!");
@@ -193,35 +177,25 @@ public class Projectile : MonoBehaviour
 
             }
 
-            /*if (collision.gameObject.GetComponent("Target") as Target != null)
-            {
-                Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
-                Instantiate(plusUnFX, new Vector3(transform.position.x, 5.0f, transform.position.z), Quaternion.identity);
-                //joueur.setPoints(joueur.getPoints() + 1);
-                //Debug.Log(joueur.getPoints());
-                points += 1;
-                UnityEngine.Object.Destroy(this.gameObject);
-                
-            }*/
-            else if (collision.gameObject.GetComponent("Projectile") as Projectile != null)
+            else if (collision.gameObject.GetComponent("Projectile") as Projectile != null) //si les minions se cognent entre eux, FX
             {
                 Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
                 return;
             }
 
-            else if (collision.gameObject.GetComponent("Float") as Float != null)
+            else if (collision.gameObject.GetComponent("Float") as Float != null) //si le minions cogne le bord de la piscine, FX
             {
                 Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
                 return;
             }
 
-            else if (collision.gameObject.GetComponent("Basket") as Basket != null)
+            else if (collision.gameObject.GetComponent("Basket") as Basket != null) //si le minion cogne l'extérieur du panier cible, FX
             {
                 Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
                 return;
             }
 
-            else if (collision.gameObject.GetComponent("Water") as Water != null)
+            else if (collision.gameObject.GetComponent("Water") as Water != null) //si le minion entre en contact avec l'eau, FX plus disparition
             {
                 Instantiate(hitwaterFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), rotation);
                 Debug.Log("The water is lava!");
@@ -229,7 +203,7 @@ public class Projectile : MonoBehaviour
                 UnityEngine.Object.Destroy(this.gameObject);
             }
 
-            else
+            else //si le minion entre en contact avec le sol, FX p)lus disparition
             {
                 Instantiate(deathFX, new Vector3(transform.position.x, 1.0f, transform.position.z), rotation);
                 Debug.Log("The floor is lava!");
@@ -239,4 +213,5 @@ public class Projectile : MonoBehaviour
             }
         }
     }
+    #endregion
 }

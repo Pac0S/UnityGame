@@ -7,11 +7,15 @@ using UnityEngine.Events;
 
 public class LevelLoader : MonoBehaviour
 {
+    #region Attributs
+
     public Animator Anim;
+
     public float transitionTime = 1f;
+
     public Image img;
+
     public Joueur joueur;
-    //private GameObject projectile;
     
     public static bool GameIsPaused = false;
 
@@ -20,29 +24,27 @@ public class LevelLoader : MonoBehaviour
 
     static string previous_level = null;
 
-    public void PlayGame() //ou loadnextlevel
+    #endregion
+
+    #region Interactions
+
+    public void PlayGame() //ou loadnextlevel --pas encore d'autre level
     {
-        //projectile = joueur.projectiles[0];
         StartCoroutine(LoadLevel()); 
     }
 
     public void NewGame()
     {
-        Resume(); //****
-        LoseMenuUI.SetActive(false);
+        Resume();
+        LoseMenuUI.SetActive(false); //activé via le script joueur
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        joueur.SetPoints(0);
+        joueur.SetPoints(0); //réinitialiser les score et vie
     }
 
     public void QuitGame()
     {
         Application.Quit();
         Debug.Log("QUIT GAME!");
-    }
-
-    void Update()
-    {
-
     }
 
     public void Resume()
@@ -67,4 +69,5 @@ public class LevelLoader : MonoBehaviour
 
         SceneManager.LoadScene("Minions_Scene");
     }
+    #endregion
 }
