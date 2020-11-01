@@ -46,6 +46,8 @@ public class Projectile : MonoBehaviour
     public GameObject deathFX;
     public GameObject hitFX;
     public GameObject plusUnFX;
+    public GameObject hitwaterFX;
+    public GameObject wrongTargetFX;
 
     //Jauge de lancer
     public SpriteRenderer fleche;
@@ -72,7 +74,7 @@ public class Projectile : MonoBehaviour
     {
         speedTapis *= 1.0001f;
         speedLancer *= 1.0001f;
-        Debug.Log(speedLancer + speedTapis);
+        //Debug.Log(speedLancer + speedTapis);
 
         //Détruire l'objet si il dépasse une certaine position
 
@@ -158,34 +160,76 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        Quaternion rotation = Quaternion.Euler(0f, 0f, 0f);
+
         if (collision.gameObject.GetComponent("TapisRoulant") as TapisRoulant != null)
         {
             return;
         }
         else
         {
-            
-
             if (collision.gameObject.GetComponent("Target") as Target != null)
+            {
+                if (collision.gameObject.name == "Target" + this.name)
+                {
+                    Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+                    Instantiate(plusUnFX, new Vector3(transform.position.x, 5.0f, transform.position.z), Quaternion.identity);
+                    Debug.Log("You did  it!");
+                    /*joueur.setPoints(joueur.getPoints() + 1);
+                    Debug.Log(joueur.getPoints());*/
+                    points += 1;
+                    Debug.Log(points);
+                    UnityEngine.Object.Destroy(this.gameObject);
+                }
+                else
+                {
+                    Instantiate(wrongTargetFX, new Vector3(transform.position.x, transform.position.y+1.0f, transform.position.z), Quaternion.identity);
+                    Debug.Log("Wrong target!");
+                    UnityEngine.Object.Destroy(this.gameObject);
+                }
+
+
+            }
+
+            /*if (collision.gameObject.GetComponent("Target") as Target != null)
             {
                 Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
                 Instantiate(plusUnFX, new Vector3(transform.position.x, 5.0f, transform.position.z), Quaternion.identity);
-                /*joueur.setPoints(joueur.getPoints() + 1);
-                Debug.Log(joueur.getPoints());*/
+                //joueur.setPoints(joueur.getPoints() + 1);
+                //Debug.Log(joueur.getPoints());
                 points += 1;
                 UnityEngine.Object.Destroy(this.gameObject);
                 
-            }
+            }*/
             else if (collision.gameObject.GetComponent("Projectile") as Projectile != null)
             {
                 Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
                 return;
             }
 
+            else if (collision.gameObject.GetComponent("Float") as Float != null)
+            {
+                Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+                return;
+            }
+
+            else if (collision.gameObject.GetComponent("Basket") as Basket != null)
+            {
+                Instantiate(hitFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
+                return;
+            }
+
+            else if (collision.gameObject.GetComponent("Water") as Water != null)
+            {
+                Instantiate(hitwaterFX, new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), rotation);
+                Debug.Log("The water is lava!");
+                UnityEngine.Object.Destroy(this.gameObject);
+            }
+
             else
             {
-                Instantiate(deathFX, new Vector3(transform.position.x, 1.0f, transform.position.z), Quaternion.identity);
-                Debug.Log("hello!");
+                Instantiate(deathFX, new Vector3(transform.position.x, 1.0f, transform.position.z), rotation);
+                Debug.Log("The floor is lava!");
                 UnityEngine.Object.Destroy(this.gameObject);
                 
             }

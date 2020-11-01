@@ -12,12 +12,12 @@ public class Joueur : MonoBehaviour
     public Text score;
 
     public GameObject[] projectiles;
-    //private GameObject[] targets;
+    public GameObject[] targets;
     private float alarm;
-    public Target targetPrefab;
+    //public Target targetPrefab;
     //public List<Target> targets; //Liste des targets instanciées
     private float distanceJeu = 20;
-    private int nbTargets = 3;
+    //private int nbTargets = 3;
     private float interval;
     public float spawnSpeedFactor = 1.0f;
 
@@ -54,11 +54,11 @@ public class Joueur : MonoBehaviour
 
     public void InstanciateTargets()
     {
-        float xOffset = -6 + 12f / (nbTargets + 1);
-        for (int i = 0; i < nbTargets; i++)
+        float xOffset = -20 + 12f / (targets.Length + 1);
+        for (int i = 0; i < targets.Length; i++)
         {
-            xOffset += 12f / (nbTargets + 1);
-            GameObject.Instantiate(targetPrefab, new Vector3(xOffset, 0f, distanceJeu), Quaternion.identity);
+            xOffset += 5f + 12f / (targets.Length + 1);
+            GameObject.Instantiate(targets[i], new Vector3(xOffset, 1f, distanceJeu), Quaternion.identity);
         }
 
     }

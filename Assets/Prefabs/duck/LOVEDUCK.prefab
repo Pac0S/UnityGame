@@ -1393,10 +1393,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d6a787d51f9564489a773d8d007a751, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joueur: {fileID: 2722123643125987520, guid: 7f3eb5d768de0a348a7df9941c23f0e3, type: 3}
   deathFX: {fileID: 2821133150566895699, guid: 81029580dafc16342a20983d6254f501, type: 3}
   hitFX: {fileID: 1645203970115691890, guid: 2d0990879f1eb8f4d89307d2edbbca6a, type: 3}
   plusUnFX: {fileID: 2874495545040898588, guid: d0d69b8ee8695c346b1cf2a82cbd2eb3,
+    type: 3}
+  hitwaterFX: {fileID: 8979035598794992888, guid: 09a165cb113f37641be38c55884b58e7,
+    type: 3}
+  wrongTargetFX: {fileID: 4441302527317960570, guid: 1a165b4f3c5bf5b4094ae193ae6398d1,
     type: 3}
   fleche: {fileID: 8662633838871549338, guid: 46be703570df94e46a9a11c14ccb64f7, type: 3}
   material: {fileID: 2100000, guid: 7d230e8f18c746f4a919175d6793c235, type: 2}
