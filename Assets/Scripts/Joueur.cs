@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class Joueur : MonoBehaviour
 {
-    #region Attributs
+    #region Attributes
 
     private int remainingLives = 25;
 
@@ -49,7 +49,7 @@ public class Joueur : MonoBehaviour
         //Lorsque le joueur n'a plus de vie
         if (isDead == true)
         {
-            finalScore.text = "Vous avez marqué " + Projectile.points.ToString() + " points !";
+            finalScore.text = "You got " + Projectile.points.ToString() + " points!";
             LoseMenuUI.SetActive(true);
         }
     }

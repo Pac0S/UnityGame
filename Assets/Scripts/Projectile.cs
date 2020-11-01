@@ -8,7 +8,7 @@ using System;
 
 public class Projectile : MonoBehaviour
 {
-    #region Attributs
+    #region Attributes
 
     public static int points { get; set; } = 0;
     public static int errors { get; set; } = 0;
@@ -67,13 +67,6 @@ public class Projectile : MonoBehaviour
         //augmentation des vitesses, et donc de la difficulté
         speedTapis *= 1.0001f;
         speedLancer *= 1.0001f;
-
-        //Détruire l'objet si il dépasse une certaine position sur le tapis roulant
-        /*if (transform.position.x >= 6.0f && !isLaunched && !isCaught)
-        {
-            UnityEngine.Object.Destroy(this.gameObject);
-        }*/
-
         
         //Les minions défilent sur le tapis s'ils ne sont pas attrapés et / ou lancés
         if (!isCaught && !isLaunched)
