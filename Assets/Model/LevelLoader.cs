@@ -7,7 +7,7 @@ using UnityEngine.Events;
 
 public class LevelLoader : MonoBehaviour
 {
-    #region Attributs
+    #region Attributes
 
     public Animator Anim;
 
@@ -26,7 +26,7 @@ public class LevelLoader : MonoBehaviour
 
     #endregion
 
-    #region Interactions
+    #region Methods
 
     public void PlayGame() //ou loadnextlevel --pas encore d'autre level
     {
@@ -36,7 +36,7 @@ public class LevelLoader : MonoBehaviour
     public void NewGame()
     {
         Resume();
-        LoseMenuUI.SetActive(false); //activé via le script joueur
+        //LoseMenuUI.SetActive(false); //activé via le script joueur
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         joueur.SetPoints(0); //réinitialiser les score et vie
     }
@@ -50,6 +50,7 @@ public class LevelLoader : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
+        LoseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
@@ -57,6 +58,13 @@ public class LevelLoader : MonoBehaviour
    public void Pause()
     {
         pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        GameIsPaused = true;
+    }
+
+    public void Lose()
+    {
+        LoseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameIsPaused = true;
     }

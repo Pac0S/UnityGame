@@ -239,6 +239,7 @@ MonoBehaviour:
   - {fileID: 8696081147378220528, guid: 7901247fe14563445839076c51503b16, type: 3}
   spawnSpeedFactor: 1
   LoseMenuUI: {fileID: 1864071916}
+  levelLoader: {fileID: 1964725407}
 --- !u!4 &156364959
 Transform:
   m_ObjectHideFlags: 0
@@ -696,7 +697,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -105, y: -347}
-  m_SizeDelta: {x: 600, y: 63}
+  m_SizeDelta: {x: 650, y: 63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &485667529
 MonoBehaviour:
@@ -730,7 +731,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Safe puppies  : 0 \t\t\t\t\t\t Puppies in some other dimension :  25"
+  m_Text: "Safe puppies  : 0 \t\t\t\t\t\t Puppies in some other dimension :  25 /
+    25"
 --- !u!222 &485667530
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3711,6 +3713,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1e816693288bf314187efd9543e853c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1964725407 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7263256854747651887, guid: 7b111f6d4513a0f4492fe6fb55badbd3,
+    type: 3}
+  m_PrefabInstance: {fileID: 604339937}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aff2af2d8216b841abbbcc0142b6e29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2031055190

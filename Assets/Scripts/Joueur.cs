@@ -25,6 +25,8 @@ public class Joueur : MonoBehaviour
     private bool isDead;
     
     public GameObject LoseMenuUI;
+
+    public LevelLoader levelLoader;
     #endregion
 
     // Start is called before the first frame update
@@ -49,8 +51,16 @@ public class Joueur : MonoBehaviour
         //Lorsque le joueur n'a plus de vie
         if (isDead == true)
         {
-            finalScore.text = "You got " + Projectile.points.ToString() + " points!";
-            LoseMenuUI.SetActive(true);
+            if (Projectile.points == 1)
+            {
+                finalScore.text = "You got " + Projectile.points.ToString() + " point!";
+            }
+            else
+            {
+                finalScore.text = "You got " + Projectile.points.ToString() + " points!";
+            }
+            levelLoader.Lose();
+            isDead = false;
         }
     }
 
@@ -79,27 +89,17 @@ public class Joueur : MonoBehaviour
         {
             GameObject.Instantiate(targets[i], new Vector3(xs[i], 1f, ys[i]), Quaternion.identity);
         }
-
-        /*float xOffset = -20 + 12f / (targets.Length + 1);
-
-        for (int i = 0; i < targets.Length; i++)
-        {
-            xOffset += 5f + 12f / (targets.Length + 1);
-            GameObject.Instantiate(targets[i], new Vector3(xOffset, 1f, distanceJeu), Quaternion.identity);
-        }*/
-
     }
     
     public void SetCountText() //Fonction qui permet de suivre la progression des scores
     {
-        score.text = "Safe puppies : " + Projectile.points.ToString() + "\t\t\t\t\t\t" + "Puppies in some other dimension : " + (remainingLives-Projectile.errors).ToString();
+        score.text = "Safe puppies : " + Projectile.points.ToString() + "\t\t\t\t\t\t" + "Puppies in some other dimension : " + (Projectile.errors).ToString() + " / 25";
         
-        if ((remainingLives - Projectile.errors) == 0.0f) //Lorsque le joueur n'a plus de vie
+        if ((remainingLives - Projectile.errors) == 0.0f && isDead == false) //Lorsque le joueur n'a plus de vie
         {
             Debug.Log("No more life!");
             isDead = true;
         }
-        
     }
 
     public void SetPoints(int pts) //réinitialisationb des variables pour une nouvelle partie
