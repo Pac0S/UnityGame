@@ -46,7 +46,7 @@ public class Joueur : MonoBehaviour
         {
             System.Random rnd = new System.Random();
             int projIndex = rnd.Next(projectiles.Length);
-            GameObject.Instantiate(projectiles[projIndex], new Vector3(-6, 0.5f, 0.0f), Quaternion.identity);
+            GameObject.Instantiate(projectiles[projIndex], new Vector3(-6, 0.5f, -3.5f), Quaternion.identity);
             interval = UnityEngine.Random.Range(Projectile.speedTapis * 0.07f, Projectile.speedTapis * 0.2f) * spawnSpeedFactor;
             alarm = Time.time + interval;
         }
