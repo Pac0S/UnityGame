@@ -60,7 +60,6 @@ public class Joueur : MonoBehaviour
                 finalScore.text = "You got " + Projectile.points.ToString() + " points!";
             }
             levelLoader.Lose();
-            isDead = false;
         }
     }
 
@@ -111,6 +110,7 @@ public class Joueur : MonoBehaviour
         spawnSpeedFactor = 1.0f;
         interval = (UnityEngine.Random.Range(Projectile.speedTapis * 0.06f, Projectile.speedTapis * 0.25f)) * spawnSpeedFactor;
         alarm = Time.time + interval;
+        isDead = false;
     }
     #endregion
 }

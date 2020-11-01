@@ -198,11 +198,10 @@ public class Projectile : MonoBehaviour
 
             else //si le minion entre en contact avec le sol, FX p)lus disparition
             {
-                Instantiate(deathFX, new Vector3(transform.position.x, 0f, transform.position.z), Quaternion.identity);
+                Instantiate(deathFX, new Vector3(transform.position.x, transform.position.y+1f, transform.position.z), Quaternion.identity);
                 Debug.Log("The floor is lava!");
                 errors += 1;
                 UnityEngine.Object.Destroy(this.gameObject);
-                
             }
         }
     }
