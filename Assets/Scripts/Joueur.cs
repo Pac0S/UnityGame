@@ -81,7 +81,6 @@ public class Joueur : MonoBehaviour
 
     public void InstanciateTargets() //pour générer les différentes cibles espacées les unes des autres
     {
-
         float[] xs = { -26, 0, 0, 26 };
         float[] ys = { distanceJeu+20, distanceJeu +25 , distanceJeu, distanceJeu+20 };
         for (int i = 0; i < targets.Length; i++)
