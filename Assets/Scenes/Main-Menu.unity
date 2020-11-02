@@ -190,10 +190,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Take a pet and hold the button to ajust your strength
+  m_Text: 'Take a pet and hold the button to adjust your strength
 
-    The arrow shows
-    the strength given to your throw'
+    The arrow
+    shows the strength given to your throw'
 --- !u!222 &20143324
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -705,10 +705,10 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Take a pet and hold the button to ajust your strength
+  m_Text: 'Take a pet and hold the button to adjust your strength
 
-    The arrow shows
-    the strength given to your throw'
+    The arrow
+    shows the strength given to your throw'
 --- !u!222 &371068330
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1068,7 +1068,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: if you make a mistake or miss you lose a point !
+  m_Text: if you make a mistake or miss you lose a point!
 --- !u!222 &600161299
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2117,7 +2117,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1296148241
 Transform:
   m_ObjectHideFlags: 0
@@ -3055,7 +3055,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: if you make a mistake or miss you lose a point !
+  m_Text: if you make a mistake or miss you lose a point!
 --- !u!222 &1765943547
 CanvasRenderer:
   m_ObjectHideFlags: 0
